@@ -37,3 +37,6 @@ next-env.d.ts
 *.pem
 .vscode/
 .idea/
+
+.vercel
+.env*

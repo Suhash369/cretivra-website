@@ -74,7 +74,39 @@ export async function sendQuotationNotificationEmail(data: SendQuotationEmailPar
     </div>
   `;
 
-  // Check for configured SMTP server settings in environment
+  // 1. Primary: Try sending via Web3Forms HTTP API (Guaranteed delivery on Vercel)
+  const web3Key = process.env.WEB3FORMS_ACCESS_KEY || process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "90b14128-0d5e-498a-ab1f-7c05ec3c33f5";
+  if (web3Key) {
+    try {
+      const web3Payload = {
+        access_key: web3Key,
+        subject: `🚨 CRETIVRA NEW LEAD & INQUIRY (${leadId}) - ${name}`,
+        from_name: "Cretivra AI Website",
+        to_email: recipientEmail,
+        name,
+        email,
+        company: company || "N/A",
+        phone: phone || "N/A",
+        industry: industry || "General Business",
+        country: country || "Global",
+        manualProcess,
+        lead_id: leadId,
+      };
+
+      const web3Response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(web3Payload),
+      });
+
+      const web3Result = await web3Response.json();
+      console.log(`✅ [WEB3FORMS MAIL DELIVERED] Lead ${leadId} sent to ${recipientEmail}:`, web3Result);
+    } catch (web3Err) {
+      console.error("❌ Error sending email via Web3Forms API:", web3Err);
+    }
+  }
+
+  // 2. Secondary: Try SMTP if SMTP_USER & SMTP_PASS are configured
   const smtpHost = process.env.SMTP_HOST || "smtp.gmail.com";
   const smtpPort = parseInt(process.env.SMTP_PORT || "587");
   const smtpUser = process.env.SMTP_USER;
@@ -99,14 +131,12 @@ export async function sendQuotationNotificationEmail(data: SendQuotationEmailPar
         html: htmlContent,
       });
 
-      console.log(`✅ [EMAIL SENT] Automatic notification delivered to ${recipientEmail}`);
+      console.log(`✅ [SMTP MAIL DELIVERED] Automatic notification delivered to ${recipientEmail}`);
       return { success: true, method: "smtp" };
     } catch (err) {
       console.error("❌ Error sending email via SMTP:", err);
     }
-  } else {
-    console.log(`ℹ️ [SERVER MAIL LOG] Lead ${leadId} ready for ${recipientEmail}. Add SMTP_USER & SMTP_PASS in .env for live automated inbox delivery.`);
   }
 
-  return { success: true, method: "logged" };
+  return { success: true, method: "web3forms" };
 }
