@@ -9,8 +9,30 @@
   }
 
   body {
-    @apply bg-white text-slate-900 font-sans antialiased overflow-x-hidden selection:bg-blue-600 selection:text-white;
+    @apply bg-white text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white;
   }
+}
+
+/* Lenis Smooth Scroll Recommended CSS */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
 /* Custom MNC Light Scrollbar */

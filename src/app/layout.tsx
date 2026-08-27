@@ -64,7 +64,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} dark scroll-smooth`}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} dark`}>
       <body className="bg-[#070A1E] text-slate-100 min-h-screen relative font-sans">
         <SmoothScroll>
           <NodeNetworkCanvas />
