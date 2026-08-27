@@ -35,8 +35,8 @@ export default function AboutPage({ params }: { params: { region?: string } }) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
                 <div className="p-3 rounded-2xl bg-blue-50 text-blue-600 w-fit"><Cpu className="w-6 h-6" /></div>
-                <h3 className="font-heading font-bold text-xl text-slate-900">Implementation First</h3>
-                <p className="text-xs text-slate-600 leading-relaxed font-medium">We engineer working AI code, integrate with your CRM/ERP, and measure performance in actual hours saved.</p>
+                <h3 className="font-heading font-bold text-xl text-slate-900">Implementation & Integration Value</h3>
+                <p className="text-xs text-slate-600 leading-relaxed font-medium">We integrate and implement leading foundation models (Anthropic, OpenAI, Google) directly into your business systems (CRM, ERP, WhatsApp). The core value is our custom engineering, system integration, and ongoing managed service.</p>
               </div>
 
               <div className="p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">

@@ -8,44 +8,41 @@ export default function ProofBarSection() {
   const stats = [
     {
       icon: Cpu,
-      value: 450,
-      suffix: "+",
-      label: "Processes Automated",
-      subtext: "Across sales, support & operations",
+      value: 4,
+      suffix: " Tiers",
+      label: "Modular Product Ladder",
+      subtext: "Audit to 24/7 Managed Service",
     },
     {
       icon: Clock,
-      value: 1.2,
-      decimals: 1,
-      suffix: "M+",
-      label: "Hours Saved Annually",
-      subtext: "Reclaimed by client teams",
+      value: 48,
+      suffix: " Hours",
+      label: "Turnaround Audit Report",
+      subtext: "Actionable roadmap & ROI model",
     },
     {
       icon: ShieldCheck,
-      value: 99.8,
-      decimals: 1,
-      suffix: "%",
-      label: "SLA Response Accuracy",
-      subtext: "Monitored round-the-clock",
+      value: 8,
+      suffix: " Verticals",
+      label: "Industry Specializations",
+      subtext: "Tailored process workflows",
     },
     {
       icon: Zap,
       value: 24,
       suffix: "/7",
-      label: "Multi-Agent Orchestration",
-      subtext: "Zero downtime execution",
+      label: "Managed Agent Service",
+      subtext: "Continuous tuning & safeguards",
     },
   ];
 
   const techBadges = [
+    "Anthropic, OpenAI & Gemini Model Implementation",
     "WhatsApp Business API",
-    "Salesforce CRM",
-    "HubSpot",
-    "Zendesk",
-    "PostgreSQL & Vector DBs",
-    "Anthropic Claude & Gemini AI",
-    "Custom Python SDKs",
+    "Salesforce & HubSpot CRM",
+    "SAP & ERP Webhooks",
+    "RAG & Vector Knowledge Bases",
+    "Human-in-the-Loop Safeguards",
   ];
 
   return (
@@ -67,7 +64,7 @@ export default function ProofBarSection() {
                   <div className="text-3xl sm:text-4xl text-slate-900 font-heading font-bold">
                     <AnimatedCountUp
                       end={stat.value}
-                      decimals={stat.decimals || 0}
+                      decimals={0}
                       suffix={stat.suffix}
                     />
                   </div>

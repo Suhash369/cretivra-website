@@ -25,13 +25,14 @@ export default function ProductLadderSection({ region }: ProductLadderProps) {
       icon: Search,
       title: "1. AI Audit & Discovery",
       badge: "Foundation Phase",
-      tagline: "Uncover manual friction & map high-ROI AI opportunities.",
+      tagline: "Structured analysis of manual friction & high-ROI automation opportunities.",
+      targetAudience: "For companies unsure where to start or seeking low-commitment initial roadmap.",
       actionLabel: "Request Audit Quotation",
       features: [
-        "In-depth workflow bottleneck analysis",
-        "ROI & cost-savings projection model",
-        "Technical architecture & API roadmap",
-        "48-Hour delivery with actionable plan",
+        "Workflow bottleneck analysis (sales, support, operations)",
+        "ROI & cost-savings projection per opportunity",
+        "Technical architecture & integration roadmap (CRM, WhatsApp, ERP)",
+        "Written 48-hour turnaround report with actionable plan",
       ],
       popular: false,
     },
@@ -40,13 +41,15 @@ export default function ProductLadderSection({ region }: ProductLadderProps) {
       icon: Bot,
       title: "2. AI Automation Agents",
       badge: "Most Popular for SMEs",
-      tagline: "Single-agent builds for WhatsApp sales, support & leads.",
+      tagline: "Single working AI agent built for one specific business function.",
+      targetAudience: "For companies with one clear, high-volume repetitive process.",
       actionLabel: "Get Automation Quote",
       features: [
-        "Custom WhatsApp / Web Sales Qualifier Agent",
+        "WhatsApp / Web Sales Qualifier Agent",
         "Instant FAQ & Customer Support Agent",
-        "Calendar booking & lead qualification",
-        "Webhook & CRM integration",
+        "Lead qualification across website, WhatsApp, IG & ads",
+        "Built-in calendar booking & appointment scheduling",
+        "CRM & webhook integration for automatic data sync",
       ],
       popular: true,
     },
@@ -55,12 +58,13 @@ export default function ProductLadderSection({ region }: ProductLadderProps) {
       icon: Layers,
       title: "3. Custom AI Agent Systems",
       badge: "Enterprise Scale",
-      tagline: "Multi-agent autonomous systems integrated with ERP/CRM.",
+      tagline: "Connected multi-agent system replacing several linked processes.",
+      targetAudience: "For larger SMEs or mid-market companies with connected workflows.",
       actionLabel: "Get Enterprise Quotation",
       features: [
-        "Multi-agent collaborative network architecture",
-        "Bi-directional ERP, SAP, Salesforce, HubSpot sync",
-        "Custom RAG vector database & private memory",
+        "Multi-agent architecture with automated task handoffs",
+        "Bi-directional sync with ERP, SAP, Salesforce, or HubSpot",
+        "Custom knowledge base (RAG/vector DB) on your docs & data",
         "Dedicated security sandbox & audit trail",
       ],
       popular: false,
@@ -69,14 +73,15 @@ export default function ProductLadderSection({ region }: ProductLadderProps) {
       id: "managed",
       icon: Headphones,
       title: "4. Managed AI Service",
-      badge: "Continuous Tuning",
-      tagline: "Ongoing monitoring, prompt tuning, 24/7 SLA uptime.",
+      badge: "Recurring Operations",
+      tagline: "Ongoing operation, 24/7 SLA monitoring & continuous agent tuning.",
+      targetAudience: "The natural next step for all live Tier 2 & Tier 3 deployments.",
       actionLabel: "Get Managed SLA Quote",
       features: [
-        "24/7 Agent SLA uptime & error monitoring",
-        "Weekly prompt optimization & model upgrades",
+        "24/7 monitoring of agent uptime & error rates",
+        "Weekly prompt tuning & model upgrades",
         "Human-in-the-loop fallback escalation",
-        "Dedicated AI engineer & monthly analytics",
+        "Monthly analytics reporting on agent performance & savings",
       ],
       popular: false,
     },
@@ -138,7 +143,12 @@ export default function ProductLadderSection({ region }: ProductLadderProps) {
                     </div>
 
                     <h3 className="font-heading font-bold text-lg text-slate-900 mb-2">{tier.title}</h3>
-                    <p className="text-xs text-slate-600 mb-6 leading-relaxed font-normal">{tier.tagline}</p>
+                    <p className="text-xs text-slate-600 mb-4 leading-relaxed font-normal">{tier.tagline}</p>
+
+                    <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 mb-6 text-[11px] text-slate-600">
+                      <span className="font-bold text-slate-900 block mb-0.5">Who it's for:</span>
+                      {tier.targetAudience}
+                    </div>
 
                     <div className="mb-6 pb-6 border-b border-slate-100">
                       <span className="inline-block text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1 rounded-lg border border-blue-200/80">
