@@ -23,9 +23,19 @@ export async function generateMetadata({
   const reg = getRegion(params.region);
   const baseUrl = `https://cretivra.com${params.region ? `/${params.region}` : ""}`;
 
+  const regionKeywords = [
+    `AI agency ${reg.name}`,
+    `AI automation company ${reg.areaServed}`,
+    ...reg.majorCities.map((city) => `AI agent developers ${city}`),
+    `WhatsApp AI bot ${reg.name}`,
+    `multi-agent autonomous systems ${reg.name}`,
+    `AI engineering partner ${reg.areaServed}`,
+  ];
+
   return {
     title: `${reg.heroHeadline} | Cretivra ${reg.name}`,
     description: reg.heroSubheadline,
+    keywords: regionKeywords,
     alternates: {
       canonical: baseUrl,
       languages: {
@@ -36,6 +46,10 @@ export async function generateMetadata({
         "en-sg": "https://cretivra.com/sg",
         "x-default": "https://cretivra.com",
       },
+    },
+    robots: {
+      index: true,
+      follow: true,
     },
     openGraph: {
       title: `${reg.heroHeadline} | Cretivra ${reg.name}`,

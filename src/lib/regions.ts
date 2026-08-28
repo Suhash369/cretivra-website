@@ -13,6 +13,8 @@ export interface RegionConfig {
   locale: string;
   hreflang: string;
   areaServed: string;
+  majorCities: string[];
+  geoRegion?: string;
   heroHeadline: string;
   heroSubheadline: string;
   pricing: {
@@ -34,6 +36,8 @@ export const REGIONS: Record<RegionCode, RegionConfig> = {
     locale: 'en',
     hreflang: 'x-default',
     areaServed: 'Worldwide',
+    majorCities: ['Worldwide', 'North America', 'Europe', 'Asia-Pacific', 'Middle East'],
+    geoRegion: 'GLOBAL',
     heroHeadline: 'Engineering Intelligence. Building the Future with AI.',
     heroSubheadline: 'We build and manage AI agents that replace manual business processes — sales enquiries, support, lead qualification — for growing companies worldwide.',
     pricing: {
@@ -53,6 +57,8 @@ export const REGIONS: Record<RegionCode, RegionConfig> = {
     locale: 'en-IN',
     hreflang: 'en-in',
     areaServed: 'India',
+    majorCities: ['Bengaluru', 'Mumbai', 'Delhi NCR', 'Hyderabad', 'Pune', 'Chennai', 'Ahmedabad', 'Kolkata'],
+    geoRegion: 'IN-KA',
     heroHeadline: 'Automate Business Enquiries & Sales with Custom AI Agents.',
     heroSubheadline: 'Replace slow manual WhatsApp & email follow-ups with intelligent 24/7 AI agents designed for fast-growing Indian SMEs and enterprises.',
     pricing: {
@@ -72,6 +78,8 @@ export const REGIONS: Record<RegionCode, RegionConfig> = {
     locale: 'en-US',
     hreflang: 'en-us',
     areaServed: 'United States',
+    majorCities: ['San Francisco', 'New York', 'Austin', 'Chicago', 'Los Angeles', 'Seattle', 'Boston'],
+    geoRegion: 'US-CA',
     heroHeadline: 'Autonomous AI Agents for US High-Growth Mid-Market Teams.',
     heroSubheadline: 'Eliminate operational drag. Deploy custom multi-agent workflows integrated with Salesforce, HubSpot, and internal databases in days.',
     pricing: {
@@ -91,6 +99,8 @@ export const REGIONS: Record<RegionCode, RegionConfig> = {
     locale: 'en-GB',
     hreflang: 'en-gb',
     areaServed: 'United Kingdom',
+    majorCities: ['London', 'Manchester', 'Birmingham', 'Edinburgh', 'Bristol'],
+    geoRegion: 'GB-LND',
     heroHeadline: 'Enterprise-Grade AI Implementation & Managed Services UK.',
     heroSubheadline: 'Secure, GDPR-compliant AI agent architectures that automate customer support, lead intake, and complex workflow execution.',
     pricing: {
@@ -110,6 +120,8 @@ export const REGIONS: Record<RegionCode, RegionConfig> = {
     locale: 'en-AE',
     hreflang: 'en-ae',
     areaServed: 'United Arab Emirates & GCC',
+    majorCities: ['Dubai', 'Abu Dhabi', 'Sharjah', 'Riyadh', 'Doha'],
+    geoRegion: 'AE-DU',
     heroHeadline: 'AI Implementation Partner for GCC & UAE Leaders.',
     heroSubheadline: 'Scale operations across Dubai, Abu Dhabi, and the region with multi-lingual AI agents operating across WhatsApp, web, and ERP systems.',
     pricing: {
@@ -129,6 +141,8 @@ export const REGIONS: Record<RegionCode, RegionConfig> = {
     locale: 'en-SG',
     hreflang: 'en-sg',
     areaServed: 'Singapore & APAC',
+    majorCities: ['Singapore', 'Kuala Lumpur', 'Jakarta', 'Bangkok'],
+    geoRegion: 'SG',
     heroHeadline: 'Agentic AI Automation for APAC Enterprises.',
     heroSubheadline: 'Drive 24/7 responsiveness across regional sales hubs and supply chains with managed autonomous AI agent infrastructure.',
     pricing: {

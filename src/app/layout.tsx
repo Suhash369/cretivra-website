@@ -24,15 +24,44 @@ export const metadata: Metadata = {
   description:
     "Cretivra builds and manages autonomous AI agents that replace manual business processes — sales enquiries, customer support, lead qualification — for growing companies worldwide.",
   metadataBase: new URL("https://cretivra.com"),
+  alternates: {
+    canonical: "https://cretivra.com",
+    languages: {
+      "en-in": "https://cretivra.com/in",
+      "en-us": "https://cretivra.com/us",
+      "en-gb": "https://cretivra.com/uk",
+      "en-ae": "https://cretivra.com/ae",
+      "en-sg": "https://cretivra.com/sg",
+      "x-default": "https://cretivra.com",
+    },
+  },
   keywords: [
     "AI automation agency India",
-    "AI agent development company",
+    "AI agent development company Bengaluru",
+    "AI automation agency Mumbai",
     "agentic AI implementation partner",
     "AI managed services for SMEs",
     "WhatsApp sales AI agent",
     "multi-agent systems enterprise",
+    "hire AI developer India",
+    "AI automation agency US UAE UK",
+    "custom LLM RAG vector memory",
   ],
   authors: [{ name: "Cretivra Engineering Team" }],
+  verification: {
+    google: "google71109e696bc5dee0",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     title: "Cretivra — Engineering Intelligence. Building the Future with AI.",
     description:
