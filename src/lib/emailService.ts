@@ -74,7 +74,39 @@ export async function sendQuotationNotificationEmail(data: SendQuotationEmailPar
     </div>
   `;
 
-  // 1. Primary: Try sending via Web3Forms HTTP API (Guaranteed delivery on Vercel)
+  // 1. Primary: Send via FormSubmit API directly to suhashsugi369@gmail.com (Guaranteed delivery)
+  try {
+    const formSubmitPayload = {
+      _subject: `🚨 CRETIVRA NEW LEAD (${leadId}) - ${name}`,
+      _template: "table",
+      _captcha: "false",
+      "Reference ID": leadId,
+      "Customer Name": name,
+      "Work Email": email,
+      "Company Name": company || "N/A",
+      "Phone / WhatsApp": phone || "N/A",
+      "Industry / Solution": industry || "N/A",
+      "Country / Region": country || "Global",
+      "Requirement & Video Link": manualProcess,
+    };
+
+    const fsRes = await fetch("https://formsubmit.co/ajax/suhashsugi369@gmail.com", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Referer": "https://cretivra-website.vercel.app/",
+      },
+      body: JSON.stringify(formSubmitPayload),
+    });
+
+    const fsResult = await fsRes.json();
+    console.log(`✅ [FORMSUBMIT MAIL DELIVERED] Lead ${leadId}:`, fsResult);
+  } catch (fsErr) {
+    console.error("❌ Error sending email via FormSubmit API:", fsErr);
+  }
+
+  // 2. Secondary: Send via Web3Forms HTTP API
   const web3Key = process.env.WEB3FORMS_ACCESS_KEY || process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "90b14128-0d5e-498a-ab1f-7c05ec3c33f5";
   if (web3Key) {
     try {
@@ -109,7 +141,7 @@ Sent automatically by Cretivra AI Lead Engine
       });
 
       const web3Result = await web3Response.json();
-      console.log(`✅ [WEB3FORMS MAIL DELIVERED] Lead ${leadId} sent via Web3Forms:`, web3Result);
+      console.log(`✅ [WEB3FORMS MAIL DELIVERED] Lead ${leadId}:`, web3Result);
     } catch (web3Err) {
       console.error("❌ Error sending email via Web3Forms API:", web3Err);
     }
