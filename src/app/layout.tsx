@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import SmoothScroll from "@/components/animation/SmoothScroll";
 import NodeNetworkCanvas from "@/components/animation/NodeNetworkCanvas";
@@ -94,6 +95,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} dark`}>
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-V3D6MD4H4B"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-V3D6MD4H4B');
+          `}
+        </Script>
+      </head>
       <body className="bg-[#070A1E] text-slate-100 min-h-screen relative font-sans">
         <SmoothScroll>
           <NodeNetworkCanvas />
