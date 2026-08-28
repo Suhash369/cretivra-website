@@ -42,22 +42,60 @@ export default function LeadFormSection({ region }: LeadFormProps) {
         ? `${formData.manualProcess}\n\n🎥 Attached Process Video/Link: ${formData.videoLink}`
         : formData.manualProcess;
 
-      const res = await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          manualProcess: fullProcessDescription,
-          region: region.code,
-          leadType: "prototype",
-        }),
-      });
+      // 1. Try Next.js Serverless API Route
+      let isSuccess = false;
+      let generatedLeadId = `CR-${Math.floor(100000 + Math.random() * 900000)}`;
 
-      const data = await res.json();
+      try {
+        const res = await fetch("/api/lead", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...formData,
+            manualProcess: fullProcessDescription,
+            region: region.code,
+            leadType: "prototype",
+          }),
+        });
 
-      if (res.ok && data.success) {
+        const data = await res.json();
+        if (res.ok && data.success) {
+          isSuccess = true;
+          generatedLeadId = data.leadId;
+        }
+      } catch (apiErr) {
+        console.warn("Server API route failed, trying direct Web3Forms endpoint...", apiErr);
+      }
+
+      // 2. Direct Web3Forms Fallback if Server API was unreachable
+      if (!isSuccess) {
+        const web3Key = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "90b14128-0d5e-498a-ab1f-7c05ec3c33f5";
+        const web3Res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: web3Key,
+            subject: `🚨 CRETIVRA NEW LEAD (${generatedLeadId}) - ${formData.name}`,
+            from_name: "Cretivra AI Website",
+            name: formData.name,
+            email: formData.email,
+            company: formData.company || "N/A",
+            phone: formData.phone || "N/A",
+            website: formData.website || "N/A",
+            message: fullProcessDescription,
+            lead_id: generatedLeadId,
+          }),
+        });
+
+        const web3Data = await web3Res.json();
+        if (web3Res.ok && web3Data.success) {
+          isSuccess = true;
+        }
+      }
+
+      if (isSuccess) {
         setSubmitted(true);
-        setLeadId(data.leadId);
+        setLeadId(generatedLeadId);
         confetti({
           particleCount: 80,
           spread: 70,
@@ -65,10 +103,10 @@ export default function LeadFormSection({ region }: LeadFormProps) {
           colors: ["#2563EB", "#06B6D4", "#7C3AED"],
         });
       } else {
-        setErrorMessage(data.error || "Failed to submit request.");
+        setErrorMessage("Failed to submit request. Please try again.");
       }
     } catch (err) {
-      setErrorMessage("Network error connecting to API server.");
+      setErrorMessage("Network error connecting to form server.");
     } finally {
       setLoading(false);
     }
