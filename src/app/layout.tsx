@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Cretivra Engineering Team" }],
   verification: {
-    google: "google71109e696bc5dee0",
+    google: "pNaj40awSEDWlQC1j5Y5V6sTyQDoWRDyXU-aaR41PT4",
   },
   robots: {
     index: true,
