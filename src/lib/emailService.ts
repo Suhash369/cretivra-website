@@ -80,17 +80,26 @@ export async function sendQuotationNotificationEmail(data: SendQuotationEmailPar
     try {
       const web3Payload = {
         access_key: web3Key,
-        subject: `🚨 CRETIVRA NEW LEAD & INQUIRY (${leadId}) - ${name}`,
+        subject: `🚨 CRETIVRA NEW LEAD (${leadId}) - ${name}`,
         from_name: "Cretivra AI Website",
-        to_email: recipientEmail,
         name,
         email,
-        company: company || "N/A",
-        phone: phone || "N/A",
-        industry: industry || "General Business",
-        country: country || "Global",
-        manualProcess,
-        lead_id: leadId,
+        message: `
+🚀 CRETIVRA AI - NEW LEAD & INQUIRY RECEIVED
+--------------------------------------------------
+Reference ID: ${leadId}
+Customer Name: ${name}
+Work Email: ${email}
+Company Name: ${company || "N/A"}
+Phone / WhatsApp: ${phone || "N/A"}
+Industry / Solution: ${industry || "N/A"}
+Country / Region: ${country || "Global"}
+
+📝 REQUIREMENT & VIDEO WALKTHROUGH NOTES:
+${manualProcess}
+--------------------------------------------------
+Sent automatically by Cretivra AI Lead Engine
+        `,
       };
 
       const web3Response = await fetch("https://api.web3forms.com/submit", {
@@ -100,7 +109,7 @@ export async function sendQuotationNotificationEmail(data: SendQuotationEmailPar
       });
 
       const web3Result = await web3Response.json();
-      console.log(`✅ [WEB3FORMS MAIL DELIVERED] Lead ${leadId} sent to ${recipientEmail}:`, web3Result);
+      console.log(`✅ [WEB3FORMS MAIL DELIVERED] Lead ${leadId} sent via Web3Forms:`, web3Result);
     } catch (web3Err) {
       console.error("❌ Error sending email via Web3Forms API:", web3Err);
     }
