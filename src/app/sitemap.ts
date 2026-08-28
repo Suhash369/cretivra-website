@@ -3,8 +3,7 @@ import { REGIONS } from "@/lib/regions";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://cretivra-website.vercel.app");
+    process.env.NEXT_PUBLIC_SITE_URL || "https://cretivra-website.vercel.app";
 
   const subPages = [
     "",
