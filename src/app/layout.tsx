@@ -25,6 +25,17 @@ export const metadata: Metadata = {
   description:
     "Cretivra builds and manages autonomous AI agents that replace manual business processes — sales enquiries, customer support, lead qualification — for growing companies worldwide.",
   metadataBase: new URL("https://cretivra.com"),
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    shortcut: ["/favicon.ico"],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   alternates: {
     canonical: "https://cretivra.com",
     languages: {
@@ -96,6 +107,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} dark`}>
       <head>
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-V3D6MD4H4B"
           strategy="afterInteractive"
