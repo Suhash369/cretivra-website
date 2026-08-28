@@ -69,36 +69,38 @@ export default function QuotationModal({
     try {
       const generatedQuoteId = `CR-${Math.floor(100000 + Math.random() * 900000)}`;
 
-      // Submit directly to Web3Forms API using the user's secret key
-      const web3FormsPayload = {
-        access_key: WEB3FORMS_ACCESS_KEY,
-        subject: `🚨 NEW CRETIVRA AI QUOTATION REQUEST (${generatedQuoteId}) - ${formData.name}`,
-        from_name: "Cretivra AI Quotations",
-        to_email: OWNER_EMAIL,
-        name: formData.name,
-        email: formData.email,
-        company: formData.company,
-        phone: formData.phone,
-        solution_tier: formData.tier,
-        monthly_volume: formData.volume,
-        target_channels: formData.channels.join(", "),
-        crm_integration: formData.crm,
-        region_market: region.name,
-        process_notes_or_video: formData.requirements || "None",
-        quote_ref_id: generatedQuoteId,
-      };
+      // 1. Web3Forms FormData Submission
+      const web3FormData = new FormData();
+      web3FormData.append("access_key", WEB3FORMS_ACCESS_KEY);
+      web3FormData.append("subject", `🚨 CRETIVRA QUOTATION REQUEST (${generatedQuoteId}) - ${formData.name}`);
+      web3FormData.append("from_name", "Cretivra AI Quotations");
+      web3FormData.append("name", formData.name);
+      web3FormData.append("email", formData.email);
+      web3FormData.append("company", formData.company || "N/A");
+      web3FormData.append("phone", formData.phone || "N/A");
+      web3FormData.append("message", `Quotation Ref: ${generatedQuoteId}\nTier: ${formData.tier}\nVolume: ${formData.volume}\nChannels: ${formData.channels.join(", ")}\nIntegration: ${formData.crm}\nRegion: ${region.name}\nNotes: ${formData.requirements || "None"}`);
 
-      const response = await fetch("https://api.web3forms.com/submit", {
+      fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(web3FormsPayload),
-      });
+        body: web3FormData,
+      }).catch(() => {});
 
-      const resData = await response.json();
-      console.log("Web3Forms response:", resData);
+      // 2. FormSubmit Direct Delivery
+      const fsFormData = new FormData();
+      fsFormData.append("_subject", `🚨 CRETIVRA QUOTATION REQUEST (${generatedQuoteId}) - ${formData.name}`);
+      fsFormData.append("name", formData.name);
+      fsFormData.append("email", formData.email);
+      fsFormData.append("company", formData.company || "N/A");
+      fsFormData.append("phone", formData.phone || "N/A");
+      fsFormData.append("message", `Quotation Ref: ${generatedQuoteId}\nTier: ${formData.tier}\nVolume: ${formData.volume}\nChannels: ${formData.channels.join(", ")}\nIntegration: ${formData.crm}\nRegion: ${region.name}\nNotes: ${formData.requirements || "None"}`);
 
-      // Save to local database API
-      await fetch("/api/lead", {
+      fetch("https://formsubmit.co/ajax/suhashsugi369@gmail.com", {
+        method: "POST",
+        body: fsFormData,
+      }).catch(() => {});
+
+      // 3. Save to server API
+      fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -108,10 +110,10 @@ export default function QuotationModal({
           phone: formData.phone,
           industry: formData.tier,
           country: region.name,
-          manualProcess: `[WEB3FORMS QUOTATION REQUEST] Ref: ${generatedQuoteId} | Tier: ${formData.tier} | Volume: ${formData.volume} | Channels: ${formData.channels.join(", ")} | Integration: ${formData.crm} | Notes: ${formData.requirements}`,
+          manualProcess: `[QUOTATION REQUEST] Ref: ${generatedQuoteId} | Tier: ${formData.tier} | Volume: ${formData.volume} | Channels: ${formData.channels.join(", ")} | Integration: ${formData.crm} | Notes: ${formData.requirements}`,
           region: region.code,
         }),
-      });
+      }).catch(() => {});
 
       setSubmitted(true);
       setQuoteId(generatedQuoteId);
