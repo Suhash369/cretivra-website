@@ -34,6 +34,7 @@ export default function CretivraLogo({
 
   // If using uploaded image asset directly
   if (useImageOnly || !imgError) {
+    const logoSrc = lightMode ? "/logo.png" : "/logo-dark.png";
     return (
       <motion.div
         whileHover={{ scale: 1.03 }}
@@ -41,7 +42,7 @@ export default function CretivraLogo({
         className={`inline-flex items-center select-none cursor-pointer shrink-0 ${className}`}
       >
         <Image
-          src="/logo.png"
+          src={logoSrc}
           alt="Cretivra Logo - Engineering Intelligence"
           width={Math.round(current.height * (690 / 500))}
           height={current.height}
