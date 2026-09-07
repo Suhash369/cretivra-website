@@ -24,10 +24,10 @@ export default function CretivraLogo({
   const [imgError, setImgError] = useState(false);
 
   const sizeDimensions = {
-    sm: { height: 28, imageWidth: 110, symbolWidth: 38, textClass: "text-lg tracking-wider" },
-    md: { height: 36, imageWidth: 140, symbolWidth: 54, textClass: "text-xl tracking-widest" },
-    lg: { height: 50, imageWidth: 190, symbolWidth: 80, textClass: "text-3xl tracking-widest" },
-    xl: { height: 85, imageWidth: 320, symbolWidth: 140, textClass: "text-5xl tracking-[0.25em]" },
+    sm: { height: 32, maxHClass: "h-7 sm:h-8", symbolWidth: 38, textClass: "text-base sm:text-lg tracking-wider" },
+    md: { height: 42, maxHClass: "h-9 sm:h-11", symbolWidth: 54, textClass: "text-lg sm:text-xl tracking-widest" },
+    lg: { height: 56, maxHClass: "h-12 sm:h-14", symbolWidth: 80, textClass: "text-2xl sm:text-3xl tracking-widest" },
+    xl: { height: 80, maxHClass: "h-16 sm:h-20", symbolWidth: 140, textClass: "text-4xl sm:text-5xl tracking-[0.25em]" },
   };
 
   const current = sizeDimensions[size];
@@ -38,16 +38,16 @@ export default function CretivraLogo({
       <motion.div
         whileHover={{ scale: 1.03 }}
         transition={{ duration: 0.25 }}
-        className={`inline-flex items-center select-none cursor-pointer ${className}`}
+        className={`inline-flex items-center select-none cursor-pointer shrink-0 ${className}`}
       >
         <Image
           src="/logo.png"
           alt="Cretivra Logo - Engineering Intelligence"
-          width={current.imageWidth}
+          width={Math.round(current.height * (690 / 500))}
           height={current.height}
           priority
           onError={() => setImgError(true)}
-          className="object-contain drop-shadow-sm h-auto"
+          className={`object-contain drop-shadow-xs w-auto ${current.maxHClass}`}
         />
       </motion.div>
     );

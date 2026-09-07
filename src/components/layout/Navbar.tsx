@@ -53,15 +53,15 @@ export default function Navbar({ region }: NavbarProps) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-white/95 backdrop-blur-xl border-b border-slate-200/80 py-2.5 sm:py-3 shadow-md shadow-slate-200/40"
-            : "bg-white/70 backdrop-blur-md py-3.5 sm:py-5 border-b border-slate-100"
+            ? "bg-white/95 backdrop-blur-xl border-b border-slate-200/80 py-2 sm:py-2.5 shadow-md shadow-slate-200/40"
+            : "bg-white/90 backdrop-blur-md py-2.5 sm:py-3.5 border-b border-slate-100"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            <Link href={basePrefix || "/"} className="flex items-center">
+            <Link href={basePrefix || "/"} className="flex items-center h-9 sm:h-11">
               <CretivraLogo size="md" lightMode={true} useImageOnly={true} />
             </Link>
 
@@ -94,7 +94,7 @@ export default function Navbar({ region }: NavbarProps) {
             <div className="flex lg:hidden items-center gap-2">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2.5 rounded-xl bg-slate-100/80 text-slate-700 border border-slate-200 hover:bg-slate-200 transition-colors"
+                className="p-2 sm:p-2.5 rounded-xl bg-slate-100/90 text-slate-700 border border-slate-200 hover:bg-slate-200 transition-colors focus:outline-none"
                 aria-label="Toggle Navigation Menu"
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -103,46 +103,59 @@ export default function Navbar({ region }: NavbarProps) {
           </div>
         </div>
 
-        {/* Mobile Slide-Down Drawer with Dynamic Alignment and Max-Height */}
+        {/* Mobile Backdrop & Slide-Down Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden absolute top-full inset-x-0 bg-white/98 backdrop-blur-2xl border-b border-slate-200 p-4 sm:p-6 space-y-4 sm:space-y-5 shadow-2xl max-h-[calc(100vh-4.5rem)] overflow-y-auto">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 gap-2">
-              <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                Region & Currency
-              </span>
-              <RegionSelector currentRegion={region} />
-            </div>
+          <>
+            {/* Dark Dimming Backdrop Overlay */}
+            <div
+              className="fixed inset-0 top-[50px] sm:top-[58px] bg-slate-950/60 backdrop-blur-xs z-40 lg:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
 
-            <nav className="flex flex-col gap-3.5">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`text-base font-medium py-1 transition-colors ${
-                    pathname === link.href
-                      ? "text-blue-600 font-bold"
-                      : "text-slate-800 hover:text-blue-600"
-                  }`}
+            {/* 100% Solid White Mobile Menu Drawer */}
+            <div
+              className="lg:hidden absolute top-full inset-x-0 bg-white z-50 border-b border-slate-200 p-4 sm:p-6 space-y-4 shadow-2xl max-h-[calc(100vh-3.8rem)] overflow-y-auto"
+              style={{ backgroundColor: "#ffffff" }}
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-slate-100 gap-2">
+                <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                  Region & Currency
+                </span>
+                <RegionSelector currentRegion={region} />
+              </div>
+
+              <nav className="flex flex-col gap-1">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`text-base font-semibold px-3.5 py-2.5 rounded-xl transition-colors ${
+                      pathname === link.href
+                        ? "text-blue-600 bg-blue-50 font-bold"
+                        : "text-slate-800 hover:bg-slate-50 hover:text-blue-600"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
+
+              <div className="pt-3 border-t border-slate-100">
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setQuoteModalOpen(true);
+                  }}
+                  className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600 shadow-md min-h-[48px] active:scale-98 transition-transform"
                 >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-
-            <div className="pt-3 border-t border-slate-100">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setQuoteModalOpen(true);
-                }}
-                className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600 shadow-md min-h-[48px]"
-              >
-                <Calculator className="w-4 h-4" />
-                <span>Get Custom Quotation</span>
-              </button>
+                  <Calculator className="w-4 h-4" />
+                  <span>Get Custom Quotation</span>
+                </button>
+              </div>
             </div>
-          </div>
+          </>
         )}
       </header>
 

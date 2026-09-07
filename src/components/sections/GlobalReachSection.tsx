@@ -140,7 +140,7 @@ export default function GlobalReachSection() {
                 <div
                   key={hub.id}
                   onClick={() => setActiveHub(hub.id)}
-                  className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl cursor-pointer transition-all duration-300 border ${
+                  className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl cursor-pointer transition-all duration-300 border last:col-span-2 sm:last:col-span-1 ${
                     isActive
                       ? "bg-blue-50/80 border-blue-500 shadow-md ring-1 ring-blue-400"
                       : "bg-white border-slate-200 hover:border-slate-300"

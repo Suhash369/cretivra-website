@@ -120,7 +120,7 @@ export default function ProductLadderSection({ region }: ProductLadderProps) {
                   transition={{ duration: 0.4, delay: i * 0.08 }}
                   className={`relative flex flex-col justify-between p-6 rounded-3xl transition-all duration-300 ${
                     tier.popular
-                      ? "bg-white border-2 border-blue-500 shadow-xl shadow-blue-500/10 scale-102"
+                      ? "bg-white border-2 border-blue-500 shadow-xl shadow-blue-500/10 md:scale-102"
                       : "bg-white border border-slate-200 hover:border-blue-400 hover:shadow-lg"
                   }`}
                 >
