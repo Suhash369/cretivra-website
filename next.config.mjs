@@ -5,6 +5,21 @@ const nextConfig = {
     unoptimized: true,
     formats: ['image/avif', 'image/webp'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'cretivra-website.vercel.app',
+          },
+        ],
+        destination: 'https://cretivra.com/:path*',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
