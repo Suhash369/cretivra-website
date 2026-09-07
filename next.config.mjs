@@ -9,21 +9,6 @@ const nextConfig = {
     return [
       {
         source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: '(?<host>.*\\.vercel\\.app)',
-          },
-        ],
-        headers: [
-          {
-            key: 'X-Robots-Tag',
-            value: 'noindex, nofollow',
-          },
-        ],
-      },
-      {
-        source: '/:path*',
         headers: [
           {
             key: 'X-Content-Type-Options',
