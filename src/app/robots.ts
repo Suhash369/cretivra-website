@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://cretivra-website.vercel.app";
+    process.env.NEXT_PUBLIC_SITE_URL || "https://cretivra.com";
 
   return {
     rules: {

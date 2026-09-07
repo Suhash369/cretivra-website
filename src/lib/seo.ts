@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { REGIONS, RegionCode, getRegion } from "./regions";
 
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://cretivra-website.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://cretivra.com";
 
 interface BuildPageMetadataOptions {
   title: string;
