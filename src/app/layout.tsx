@@ -58,6 +58,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Cretivra Engineering Team" }],
   verification: {
     google: "pNaj40awSEDWlQC1j5Y5V6sTyQDoWRDyXU-aaR41PT4",
+    other: {
+      "msvalidate.01": "6704B5F1A29B47E9244FF3B298FDC8A8",
+    },
   },
   robots: {
     index: true,
@@ -106,6 +109,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" href="/favicon.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="msvalidate.01" content="6704B5F1A29B47E9244FF3B298FDC8A8" />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-V3D6MD4H4B"
           strategy="afterInteractive"
