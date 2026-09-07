@@ -27,15 +27,15 @@ export default function ContactPage({ params }: { params: { region: string } }) 
   return (
     <>
       <StructuredData region={reg} pageType="contact" />
-      <section className="relative pt-36 pb-16 bg-gradient-to-b from-white via-slate-50 to-white text-center">
+      <section className="relative pt-28 sm:pt-36 pb-12 sm:pb-16 bg-gradient-to-b from-white via-slate-50 to-white text-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="text-xs font-semibold text-blue-600 tracking-widest uppercase mb-3 block">
+          <span className="text-xs font-semibold text-blue-600 tracking-widest uppercase mb-2 sm:mb-3 block">
             Direct Communication ({reg.name})
           </span>
-          <h1 className="text-4xl sm:text-6xl font-heading font-extrabold text-slate-900">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-heading font-extrabold text-slate-900 leading-tight">
             Let's Engineer Your AI Infrastructure.
           </h1>
-          <p className="mt-4 text-slate-600 text-lg max-w-2xl mx-auto">
+          <p className="mt-3 sm:mt-4 text-slate-600 text-sm sm:text-lg max-w-2xl mx-auto px-1 sm:px-0">
             Book a discovery call, request a free AI prototype, or contact our engineering team directly.
           </p>
         </div>

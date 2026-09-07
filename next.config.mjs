@@ -18,6 +18,17 @@ const nextConfig = {
         destination: 'https://cretivra.com/:path*',
         permanent: true,
       },
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'www.cretivra.com',
+          },
+        ],
+        destination: 'https://cretivra.com/:path*',
+        permanent: true,
+      },
     ];
   },
   async headers() {

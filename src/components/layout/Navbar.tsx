@@ -105,8 +105,8 @@ export default function Navbar({ region }: NavbarProps) {
 
         {/* Mobile Slide-Down Drawer with Dynamic Alignment and Max-Height */}
         {mobileMenuOpen && (
-          <div className="lg:hidden absolute top-full inset-x-0 bg-white/98 backdrop-blur-2xl border-b border-slate-200 p-6 space-y-5 shadow-2xl max-h-[calc(100vh-4.5rem)] overflow-y-auto">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div className="lg:hidden absolute top-full inset-x-0 bg-white/98 backdrop-blur-2xl border-b border-slate-200 p-4 sm:p-6 space-y-4 sm:space-y-5 shadow-2xl max-h-[calc(100vh-4.5rem)] overflow-y-auto">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100 gap-2">
               <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
                 Region & Currency
               </span>

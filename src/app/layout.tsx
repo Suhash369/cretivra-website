@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
@@ -16,6 +16,13 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#ffffff",
+};
 
 export const metadata: Metadata = {
   title: {
@@ -112,10 +119,10 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="bg-white text-slate-900 min-h-screen relative font-sans antialiased selection:bg-blue-600 selection:text-white">
+      <body className="bg-white text-slate-900 min-h-screen relative font-sans antialiased selection:bg-blue-600 selection:text-white overflow-x-hidden w-full max-w-full">
         <SmoothScroll>
           <NodeNetworkCanvas />
-          <div className="relative z-10">{children}</div>
+          <div className="relative z-10 w-full max-w-full overflow-x-hidden">{children}</div>
         </SmoothScroll>
       </body>
     </html>

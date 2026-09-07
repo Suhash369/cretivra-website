@@ -29,16 +29,16 @@ export default function ServicesPage({ params }: { params: { region: string } })
     <>
       <StructuredData region={reg} pageType="services" />
       {/* Header Banner */}
-      <section className="relative pt-36 pb-20 bg-gradient-to-b from-white via-slate-50 to-white border-b border-slate-200">
+      <section className="relative pt-28 sm:pt-36 pb-12 sm:pb-20 bg-gradient-to-b from-white via-slate-50 to-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700 mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700 mb-4 sm:mb-6">
             <Bot className="w-3.5 h-3.5" />
             <span>AI Architecture & Implementation Suite</span>
           </div>
-          <h1 className="text-4xl sm:text-6xl font-heading font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-heading font-extrabold text-slate-900 tracking-tight leading-tight">
             Autonomous AI Agents Engineered for Scale.
           </h1>
-          <p className="mt-6 text-slate-600 text-lg max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-4 sm:mt-6 text-sm sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed px-1 sm:px-0">
             From quick-hit WhatsApp sales qualifiers to enterprise multi-agent ERP orchestrators, Cretivra builds production-ready AI agent infrastructure.
           </p>
         </div>

@@ -49,19 +49,19 @@ export default function ProofBarSection() {
     <section className="relative z-10 py-16 bg-slate-50 border-y border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Animated Metrics */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
           {stats.map((stat, i) => {
             const Icon = stat.icon;
             return (
               <div
                 key={i}
-                className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md hover:border-blue-300 transition-all"
+                className="p-3.5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md hover:border-blue-300 transition-all"
               >
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600">
-                    <Icon className="w-5 h-5" />
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 mb-2">
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-blue-50 text-blue-600 shrink-0">
+                    <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
-                  <div className="text-3xl sm:text-4xl text-slate-900 font-heading font-bold">
+                  <div className="text-2xl sm:text-3xl lg:text-4xl text-slate-900 font-heading font-bold leading-none">
                     <AnimatedCountUp
                       end={stat.value}
                       decimals={0}
@@ -69,8 +69,8 @@ export default function ProofBarSection() {
                     />
                   </div>
                 </div>
-                <h3 className="font-heading font-bold text-slate-900 text-sm">{stat.label}</h3>
-                <p className="text-xs text-slate-500 mt-1">{stat.subtext}</p>
+                <h3 className="font-heading font-bold text-slate-900 text-xs sm:text-sm truncate">{stat.label}</h3>
+                <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1 line-clamp-2">{stat.subtext}</p>
               </div>
             );
           })}

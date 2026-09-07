@@ -168,7 +168,7 @@ export default function ProductLadderSection({ region }: ProductLadderProps) {
 
                   <button
                     onClick={() => handleRequestQuote(tier.title)}
-                    className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-semibold transition-all ${
+                    className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-semibold transition-all min-h-[44px] ${
                       tier.popular
                         ? "bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600 text-white shadow-md shadow-blue-500/20 hover:opacity-95"
                         : "bg-slate-900 text-white hover:bg-slate-800"

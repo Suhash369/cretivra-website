@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
 import { RegionConfig } from "@/lib/regions";
@@ -17,6 +17,16 @@ interface QuotationModalProps {
 const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "90b14128-0d5e-498a-ab1f-7c05ec3c33f5";
 const OWNER_EMAIL = "suhashsugi369@gmail.com";
 
+function normalizeTierName(rawTier?: string): string {
+  if (!rawTier) return "AI Automation Agents";
+  const clean = rawTier.replace(/^[0-9]+\.\s*/, "").trim();
+  if (clean.includes("Audit")) return "AI Audit & Discovery";
+  if (clean.includes("Automation")) return "AI Automation Agents";
+  if (clean.includes("Custom") || clean.includes("Multi-Agent")) return "Custom Multi-Agent Systems";
+  if (clean.includes("Managed")) return "Managed AI Service";
+  return clean;
+}
+
 export default function QuotationModal({
   isOpen,
   onClose,
@@ -25,7 +35,7 @@ export default function QuotationModal({
 }: QuotationModalProps) {
   const [step, setStep] = useState<1 | 2>(1);
   const [formData, setFormData] = useState({
-    tier: defaultTier,
+    tier: normalizeTierName(defaultTier),
     volume: "1,000 - 5,000 / month",
     channels: ["WhatsApp", "Web Chat"],
     crm: "Salesforce / HubSpot",
@@ -39,6 +49,20 @@ export default function QuotationModal({
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [quoteId, setQuoteId] = useState("");
+
+  // Synchronize tier and reset state whenever modal opens or tier changes
+  useEffect(() => {
+    if (isOpen) {
+      setStep(1);
+      setSubmitted(false);
+      if (defaultTier) {
+        setFormData((prev) => ({
+          ...prev,
+          tier: normalizeTierName(defaultTier),
+        }));
+      }
+    }
+  }, [isOpen, defaultTier]);
 
   const handleChannelToggle = (channel: string) => {
     if (formData.channels.includes(channel)) {
@@ -69,37 +93,45 @@ export default function QuotationModal({
     try {
       const generatedQuoteId = `CR-${Math.floor(100000 + Math.random() * 900000)}`;
 
-      // 1. Web3Forms FormData Submission
+      // 1. Web3Forms FormData Submission with explicit Tier in Subject & Body
       const web3FormData = new FormData();
       web3FormData.append("access_key", WEB3FORMS_ACCESS_KEY);
-      web3FormData.append("subject", `🚨 CRETIVRA QUOTATION REQUEST (${generatedQuoteId}) - ${formData.name}`);
+      web3FormData.append("subject", `🚨 CRETIVRA QUOTATION [${formData.tier}] (${generatedQuoteId}) - ${formData.name}`);
       web3FormData.append("from_name", "Cretivra AI Quotations");
       web3FormData.append("name", formData.name);
       web3FormData.append("email", formData.email);
       web3FormData.append("company", formData.company || "N/A");
       web3FormData.append("phone", formData.phone || "N/A");
-      web3FormData.append("message", `Quotation Ref: ${generatedQuoteId}\nTier: ${formData.tier}\nVolume: ${formData.volume}\nChannels: ${formData.channels.join(", ")}\nIntegration: ${formData.crm}\nRegion: ${region.name}\nNotes: ${formData.requirements || "None"}`);
+      web3FormData.append("solution_tier", formData.tier);
+      web3FormData.append(
+        "message",
+        `Quotation Ref: ${generatedQuoteId}\n🎯 Selected Solution Tier: ${formData.tier}\nMonthly Volume: ${formData.volume}\nChannels: ${formData.channels.join(", ")}\nIntegration: ${formData.crm}\nRegion: ${region.name}\nNotes / Requirements:\n${formData.requirements || "None"}`
+      );
 
       fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: web3FormData,
       }).catch(() => {});
 
-      // 2. FormSubmit Direct Delivery
+      // 2. FormSubmit Direct Delivery with explicit Tier in Subject
       const fsFormData = new FormData();
-      fsFormData.append("_subject", `🚨 CRETIVRA QUOTATION REQUEST (${generatedQuoteId}) - ${formData.name}`);
+      fsFormData.append("_subject", `🚨 CRETIVRA QUOTATION [${formData.tier}] (${generatedQuoteId}) - ${formData.name}`);
       fsFormData.append("name", formData.name);
       fsFormData.append("email", formData.email);
       fsFormData.append("company", formData.company || "N/A");
       fsFormData.append("phone", formData.phone || "N/A");
-      fsFormData.append("message", `Quotation Ref: ${generatedQuoteId}\nTier: ${formData.tier}\nVolume: ${formData.volume}\nChannels: ${formData.channels.join(", ")}\nIntegration: ${formData.crm}\nRegion: ${region.name}\nNotes: ${formData.requirements || "None"}`);
+      fsFormData.append("tier", formData.tier);
+      fsFormData.append(
+        "message",
+        `Quotation Ref: ${generatedQuoteId}\n🎯 Selected Solution Tier: ${formData.tier}\nMonthly Volume: ${formData.volume}\nChannels: ${formData.channels.join(", ")}\nIntegration: ${formData.crm}\nRegion: ${region.name}\nNotes / Requirements:\n${formData.requirements || "None"}`
+      );
 
       fetch("https://formsubmit.co/ajax/suhashsugi369@gmail.com", {
         method: "POST",
         body: fsFormData,
       }).catch(() => {});
 
-      // 3. Save to server API
+      // 3. Save to server API with explicit industry tier
       fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -110,7 +142,7 @@ export default function QuotationModal({
           phone: formData.phone,
           industry: formData.tier,
           country: region.name,
-          manualProcess: `[QUOTATION REQUEST] Ref: ${generatedQuoteId} | Tier: ${formData.tier} | Volume: ${formData.volume} | Channels: ${formData.channels.join(", ")} | Integration: ${formData.crm} | Notes: ${formData.requirements}`,
+          manualProcess: `[QUOTATION REQUEST - ${formData.tier}] Ref: ${generatedQuoteId} | Tier: ${formData.tier} | Volume: ${formData.volume} | Channels: ${formData.channels.join(", ")} | Integration: ${formData.crm} | Notes: ${formData.requirements || "None"}`,
           region: region.code,
         }),
       }).catch(() => {});
@@ -124,9 +156,8 @@ export default function QuotationModal({
         origin: { y: 0.6 },
         colors: ["#2563EB", "#06B6D4", "#7C3AED"],
       });
-
     } catch (err) {
-      console.error("Web3Forms submission error:", err);
+      console.error("Quotation submission error:", err);
     } finally {
       setLoading(false);
     }
@@ -135,12 +166,12 @@ export default function QuotationModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto bg-slate-900/60 backdrop-blur-md">
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-3 sm:p-4 overflow-y-auto bg-slate-900/60 backdrop-blur-md py-6 sm:py-8">
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 10 }}
-        className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-2xl p-5 sm:p-8"
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-2xl p-5 sm:p-8 my-auto"
       >
         <button
           onClick={onClose}
@@ -161,7 +192,13 @@ export default function QuotationModal({
             </h3>
 
             <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-              Thank you <span className="font-semibold text-slate-900">{formData.name}</span>. Reference ID: <span className="font-mono bg-slate-100 text-blue-600 px-2 py-0.5 rounded font-bold border border-slate-200">{quoteId}</span>. Your quotation request has been delivered via Web3Forms. Our engineering team will review your requirements and respond to <span className="font-semibold text-blue-600">{formData.email}</span> within 2 hours.
+              Thank you <span className="font-semibold text-slate-900">{formData.name}</span>. Selected Tier:{" "}
+              <span className="font-semibold text-blue-600">{formData.tier}</span>. Reference ID:{" "}
+              <span className="font-mono bg-slate-100 text-blue-600 px-2 py-0.5 rounded font-bold border border-slate-200">
+                {quoteId}
+              </span>
+              . Our engineering team will review your requirements and respond to{" "}
+              <span className="font-semibold text-blue-600">{formData.email}</span> within 2 hours.
             </p>
 
             <button
@@ -194,12 +231,12 @@ export default function QuotationModal({
                   <select
                     value={formData.tier}
                     onChange={(e) => setFormData({ ...formData, tier: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm sm:text-xs font-medium focus:outline-none focus:border-blue-600"
+                    className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-base sm:text-xs font-medium focus:outline-none focus:border-blue-600"
                   >
                     <option value="AI Audit & Discovery">Tier 1: AI Audit & Discovery</option>
-                    <option value="AI Automation Agents">Tier 2: Single-Agent Automation (WhatsApp / Support / Sales)</option>
-                    <option value="Custom Multi-Agent Systems">Tier 3: Custom Multi-Agent Enterprise Systems</option>
-                    <option value="Managed AI Service SLA">Tier 4: 24/7 Managed AI Service SLA</option>
+                    <option value="AI Automation Agents">Tier 2: AI Automation Agents (WhatsApp / Sales / Support)</option>
+                    <option value="Custom Multi-Agent Systems">Tier 3: Custom AI Agent Systems (Multi-Agent Swarm)</option>
+                    <option value="Managed AI Service">Tier 4: Managed AI Service (24/7 SLA & Tuning)</option>
                   </select>
                 </div>
 
@@ -213,7 +250,7 @@ export default function QuotationModal({
                         type="button"
                         key={vol}
                         onClick={() => setFormData({ ...formData, volume: `${vol} / month` })}
-                        className={`py-2 px-2.5 rounded-xl text-xs font-semibold transition-all border ${
+                        className={`py-2 px-2.5 rounded-xl text-xs font-semibold transition-all border min-h-[44px] ${
                           formData.volume.startsWith(vol)
                             ? "bg-blue-600 text-white border-blue-600 shadow"
                             : "bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-300"
@@ -237,7 +274,7 @@ export default function QuotationModal({
                           type="button"
                           key={ch}
                           onClick={() => handleChannelToggle(ch)}
-                          className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
+                          className={`px-3.5 py-2 rounded-full text-xs font-medium transition-all border min-h-[38px] ${
                             selected
                               ? "bg-cyan-50 border-cyan-400 text-cyan-800 font-semibold"
                               : "bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300"
@@ -253,7 +290,7 @@ export default function QuotationModal({
                 <div className="pt-4 flex justify-end">
                   <button
                     type="submit"
-                    className="w-full sm:w-auto px-6 py-3 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 shadow-md hover:opacity-95 flex items-center justify-center gap-2 min-h-[44px]"
+                    className="w-full sm:w-auto px-6 py-3.5 sm:py-3 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 shadow-md hover:opacity-95 flex items-center justify-center gap-2 min-h-[48px]"
                   >
                     <span>Proceed to Contact Details</span>
                     <ArrowRight className="w-4 h-4" />
@@ -265,7 +302,7 @@ export default function QuotationModal({
                 <div className="p-3 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-900 mb-2 flex items-center justify-between">
                   <div>
                     <span className="font-semibold">Selected: </span>
-                    {formData.tier} • {formData.volume}
+                    <span className="font-bold text-blue-700">{formData.tier}</span> • {formData.volume}
                   </div>
                   <button
                     type="button"
@@ -287,7 +324,7 @@ export default function QuotationModal({
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Alexander Wright"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm sm:text-xs text-slate-900 focus:outline-none focus:border-blue-600"
+                      className="w-full px-3.5 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-xs text-slate-900 focus:outline-none focus:border-blue-600"
                     />
                   </div>
 
@@ -301,7 +338,7 @@ export default function QuotationModal({
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="alex@company.com"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm sm:text-xs text-slate-900 focus:outline-none focus:border-blue-600"
+                      className="w-full px-3.5 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-xs text-slate-900 focus:outline-none focus:border-blue-600"
                     />
                   </div>
                 </div>
@@ -317,7 +354,7 @@ export default function QuotationModal({
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                       placeholder="Acme Enterprises"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm sm:text-xs text-slate-900 focus:outline-none focus:border-blue-600"
+                      className="w-full px-3.5 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-xs text-slate-900 focus:outline-none focus:border-blue-600"
                     />
                   </div>
 
@@ -331,7 +368,7 @@ export default function QuotationModal({
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+91 98765 43210"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm sm:text-xs text-slate-900 focus:outline-none focus:border-blue-600"
+                      className="w-full px-3.5 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-xs text-slate-900 focus:outline-none focus:border-blue-600"
                     />
                   </div>
                 </div>
@@ -345,7 +382,7 @@ export default function QuotationModal({
                     value={formData.requirements}
                     onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
                     placeholder="Describe your process requirements or paste a Loom/Drive video link..."
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm sm:text-xs text-slate-900 focus:outline-none focus:border-blue-600"
+                    className="w-full px-3.5 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-xs text-slate-900 focus:outline-none focus:border-blue-600"
                   />
                 </div>
 
@@ -353,14 +390,14 @@ export default function QuotationModal({
                   <button
                     type="button"
                     onClick={() => setStep(1)}
-                    className="text-xs font-semibold text-slate-500 hover:text-slate-800"
+                    className="text-xs font-semibold text-slate-500 hover:text-slate-800 py-2"
                   >
                     Back
                   </button>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="px-8 py-3 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600 shadow-lg hover:opacity-95 flex items-center gap-2 disabled:opacity-50 min-h-[44px]"
+                    className="px-8 py-3.5 sm:py-3 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600 shadow-lg hover:opacity-95 flex items-center gap-2 disabled:opacity-50 min-h-[48px]"
                   >
                     {loading ? (
                       <>
@@ -383,3 +420,4 @@ export default function QuotationModal({
     </div>
   );
 }
+

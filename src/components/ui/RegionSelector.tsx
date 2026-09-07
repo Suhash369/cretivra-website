@@ -45,7 +45,7 @@ export default function RegionSelector({ currentRegion }: RegionSelectorProps) {
       {isOpen && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
-          <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-white border border-slate-200 shadow-xl shadow-slate-200/50 z-50 py-2">
+          <div className="absolute right-0 mt-2 w-64 max-w-[calc(100vw-2rem)] rounded-2xl bg-white border border-slate-200 shadow-xl shadow-slate-200/50 z-50 py-2">
             <div className="px-3 py-1.5 border-b border-slate-100 mb-1">
               <p className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">
                 Select Your Regional Hub

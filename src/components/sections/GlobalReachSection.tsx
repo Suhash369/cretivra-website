@@ -119,10 +119,10 @@ export default function GlobalReachSection() {
                   </div>
 
                   <div
-                    className={`absolute bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1 rounded-lg text-[11px] font-semibold transition-all ${
+                    className={`absolute bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-2.5 sm:px-3 py-1 rounded-lg text-[10px] sm:text-[11px] font-semibold transition-all ${
                       isActive
-                        ? "bg-blue-600 text-white shadow-md"
-                        : "bg-white text-slate-800 border border-slate-200 shadow-sm opacity-90 group-hover:opacity-100"
+                        ? "bg-blue-600 text-white shadow-md z-30 opacity-100 scale-105"
+                        : "hidden sm:block bg-white text-slate-800 border border-slate-200 shadow-sm opacity-90 group-hover:opacity-100"
                     }`}
                   >
                     <span>{hub.flag} {hub.name.split(" ")[0]}</span>
@@ -133,28 +133,28 @@ export default function GlobalReachSection() {
           </div>
 
           {/* Hub Info Cards Grid */}
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="mt-6 sm:mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-4">
             {hubs.map((hub) => {
               const isActive = activeHub === hub.id;
               return (
                 <div
                   key={hub.id}
                   onClick={() => setActiveHub(hub.id)}
-                  className={`p-4 rounded-2xl cursor-pointer transition-all duration-300 border ${
+                  className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl cursor-pointer transition-all duration-300 border ${
                     isActive
                       ? "bg-blue-50/80 border-blue-500 shadow-md ring-1 ring-blue-400"
                       : "bg-white border-slate-200 hover:border-slate-300"
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xl">{hub.flag}</span>
-                    <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-slate-100 text-blue-700">
+                  <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                    <span className="text-lg sm:text-xl">{hub.flag}</span>
+                    <span className="text-[9px] sm:text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-blue-700">
                       {hub.currency}
                     </span>
                   </div>
-                  <h4 className="font-heading font-bold text-xs text-slate-900 mb-1">{hub.name}</h4>
-                  <p className="text-[10px] text-blue-600 font-semibold mb-2">{hub.tag}</p>
-                  <p className="text-[11px] text-slate-600 leading-snug line-clamp-3">{hub.desc}</p>
+                  <h4 className="font-heading font-bold text-xs text-slate-900 mb-0.5 sm:mb-1 truncate">{hub.name}</h4>
+                  <p className="text-[9px] sm:text-[10px] text-blue-600 font-semibold mb-1 sm:mb-2 truncate">{hub.tag}</p>
+                  <p className="text-[10px] sm:text-[11px] text-slate-600 leading-snug line-clamp-2 sm:line-clamp-3">{hub.desc}</p>
                 </div>
               );
             })}

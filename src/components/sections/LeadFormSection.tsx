@@ -171,32 +171,32 @@ export default function LeadFormSection({ region }: LeadFormProps) {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                       <div>
                         <label className="block text-xs font-semibold text-slate-700 mb-1">Full Name *</label>
-                        <input type="text" name="name" required value={formData.name} onChange={handleChange} placeholder="e.g. Rahul Sharma" className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm sm:text-xs focus:outline-none focus:border-blue-600" />
+                        <input type="text" name="name" required value={formData.name} onChange={handleChange} placeholder="e.g. Rahul Sharma" className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-base sm:text-xs focus:outline-none focus:border-blue-600" />
                       </div>
                       <div>
                         <label className="block text-xs font-semibold text-slate-700 mb-1">Work Email *</label>
-                        <input type="email" name="email" required value={formData.email} onChange={handleChange} placeholder="rahul@company.com" className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm sm:text-xs focus:outline-none focus:border-blue-600" />
+                        <input type="email" name="email" required value={formData.email} onChange={handleChange} placeholder="rahul@company.com" className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-base sm:text-xs focus:outline-none focus:border-blue-600" />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
                       <div>
                         <label className="block text-xs font-semibold text-slate-700 mb-1">Company Name</label>
-                        <input type="text" name="company" value={formData.company} onChange={handleChange} placeholder="Acme Corp" className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm sm:text-xs focus:outline-none focus:border-blue-600" />
+                        <input type="text" name="company" value={formData.company} onChange={handleChange} placeholder="Acme Corp" className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-base sm:text-xs focus:outline-none focus:border-blue-600" />
                       </div>
                       <div>
                         <label className="block text-xs font-semibold text-slate-700 mb-1">Website URL</label>
-                        <input type="url" name="website" value={formData.website} onChange={handleChange} placeholder="https://company.com" className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm sm:text-xs focus:outline-none focus:border-blue-600" />
+                        <input type="url" name="website" value={formData.website} onChange={handleChange} placeholder="https://company.com" className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-base sm:text-xs focus:outline-none focus:border-blue-600" />
                       </div>
                       <div>
                         <label className="block text-xs font-semibold text-slate-700 mb-1">Phone / WhatsApp</label>
-                        <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="+91 98765 43210" className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm sm:text-xs focus:outline-none focus:border-blue-600" />
+                        <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="+91 98765 43210" className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-base sm:text-xs focus:outline-none focus:border-blue-600" />
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-xs font-semibold text-slate-700 mb-1">Describe your manual process or requirement *</label>
-                      <textarea name="manualProcess" required rows={3} value={formData.manualProcess} onChange={handleChange} placeholder="Describe the manual work or questions you want automated..." className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm sm:text-xs focus:outline-none focus:border-blue-600" />
+                      <textarea name="manualProcess" required rows={3} value={formData.manualProcess} onChange={handleChange} placeholder="Describe the manual work or questions you want automated..." className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-base sm:text-xs focus:outline-none focus:border-blue-600" />
                     </div>
 
                     {/* Video Attachment / URL Field */}
@@ -214,7 +214,7 @@ export default function LeadFormSection({ region }: LeadFormProps) {
                         value={formData.videoLink}
                         onChange={handleChange}
                         placeholder="e.g. https://www.loom.com/share/... or https://drive.google.com/..."
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-blue-200 text-slate-900 text-sm sm:text-xs focus:outline-none focus:border-blue-600"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-blue-200 text-slate-900 text-base sm:text-xs focus:outline-none focus:border-blue-600"
                       />
                     </div>
 
