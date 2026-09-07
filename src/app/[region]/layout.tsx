@@ -33,20 +33,12 @@ export async function generateMetadata({
   ];
 
   return {
-    title: `${reg.heroHeadline} | Cretivra ${reg.name}`,
+    title: {
+      default: `${reg.heroHeadline} | Cretivra ${reg.name}`,
+      template: `%s | Cretivra ${reg.name}`,
+    },
     description: reg.heroSubheadline,
     keywords: regionKeywords,
-    alternates: {
-      canonical: baseUrl,
-      languages: {
-        "en-in": "https://cretivra.com/in",
-        "en-us": "https://cretivra.com/us",
-        "en-gb": "https://cretivra.com/uk",
-        "en-ae": "https://cretivra.com/ae",
-        "en-sg": "https://cretivra.com/sg",
-        "x-default": "https://cretivra.com",
-      },
-    },
     robots: {
       index: true,
       follow: true,
@@ -55,7 +47,7 @@ export async function generateMetadata({
       title: `${reg.heroHeadline} | Cretivra ${reg.name}`,
       description: reg.heroSubheadline,
       url: baseUrl,
-      siteName: "Cretivra",
+      siteName: `Cretivra ${reg.name}`,
       images: [
         {
           url: "https://cretivra.com/og-image.png",

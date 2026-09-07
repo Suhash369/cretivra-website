@@ -60,65 +60,65 @@ export default function ProblemSolutionSection() {
             Compare how traditional companies handle operational friction versus how Cretivra AI agent infrastructure scales your business.
           </p>
 
-          {/* Interactive Switch */}
-          <div className="mt-8 inline-flex p-1.5 rounded-full bg-slate-100 border border-slate-200">
+          {/* Interactive Switch - Responsive on mobile */}
+          <div className="mt-8 inline-flex max-w-full p-1 rounded-2xl sm:rounded-full bg-slate-100 border border-slate-200 flex-wrap sm:flex-nowrap gap-1">
             <button
               onClick={() => setActiveTab("problem")}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold transition-all ${
+              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-semibold transition-all flex-1 sm:flex-initial whitespace-nowrap ${
                 activeTab === "problem"
-                  ? "bg-red-50 text-red-700 border border-red-200 shadow-sm"
+                  ? "bg-red-50 text-red-700 border border-red-200 shadow-xs"
                   : "text-slate-500 hover:text-slate-800"
               }`}
             >
-              <AlertTriangle className="w-4 h-4 text-red-500" />
-              The Old Way (Manual)
+              <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-500 shrink-0" />
+              <span>The Old Way (Manual)</span>
             </button>
             <button
               onClick={() => setActiveTab("solution")}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-semibold transition-all ${
+              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-semibold transition-all flex-1 sm:flex-initial whitespace-nowrap ${
                 activeTab === "solution"
                   ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-md shadow-blue-500/20"
                   : "text-slate-500 hover:text-slate-800"
               }`}
             >
-              <Sparkles className="w-4 h-4 text-cyan-100" />
-              The Cretivra Way (AI Agents)
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-100 shrink-0" />
+              <span>The Cretivra Way (AI Agents)</span>
             </button>
           </div>
         </div>
 
         {/* Side-by-Side Comparison Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch">
           {/* Old Way Card */}
           <div
-            className={`p-8 rounded-3xl transition-all duration-300 border ${
+            className={`p-5 sm:p-8 rounded-2xl sm:rounded-3xl transition-all duration-300 border ${
               activeTab === "problem"
                 ? "bg-red-50/50 border-red-200 shadow-xl shadow-red-100/50 ring-1 ring-red-200"
                 : "bg-slate-50/50 border-slate-200 opacity-70"
             }`}
           >
-            <div className="flex items-center justify-between pb-6 border-b border-red-200/60 mb-6">
+            <div className="flex items-center justify-between pb-4 sm:pb-6 border-b border-red-200/60 mb-5 sm:mb-6">
               <div className="flex items-center gap-3">
-                <div className="p-3 rounded-2xl bg-red-100 text-red-600">
-                  <XCircle className="w-6 h-6" />
+                <div className="p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-red-100 text-red-600">
+                  <XCircle className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <div>
-                  <h3 className="font-heading font-bold text-xl text-slate-900">The Old Way</h3>
-                  <p className="text-xs text-red-600 font-medium">Manual, slow, error-prone</p>
+                  <h3 className="font-heading font-bold text-lg sm:text-xl text-slate-900">The Old Way</h3>
+                  <p className="text-[11px] sm:text-xs text-red-600 font-medium">Manual, slow, error-prone</p>
                 </div>
               </div>
-              <span className="px-3 py-1 rounded-full text-[10px] font-mono bg-red-100 text-red-700 border border-red-200 font-bold">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-red-100 text-red-700 border border-red-200 font-bold">
                 HIGH CHURN
               </span>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {oldWayItems.map((item, index) => (
-                <div key={index} className="flex items-start gap-4">
-                  <XCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                <div key={index} className="flex items-start gap-3 sm:gap-4">
+                  <XCircle className="w-4 h-4 sm:w-5 sm:h-5 text-red-500 shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-semibold text-slate-900 text-sm">{item.title}</h4>
-                    <p className="text-xs text-slate-600 mt-1 leading-relaxed">{item.desc}</p>
+                    <h4 className="font-semibold text-slate-900 text-xs sm:text-sm">{item.title}</h4>
+                    <p className="text-[11px] sm:text-xs text-slate-600 mt-0.5 leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -127,7 +127,7 @@ export default function ProblemSolutionSection() {
 
           {/* Cretivra Way Card */}
           <div
-            className={`p-8 rounded-3xl transition-all duration-300 border ${
+            className={`p-5 sm:p-8 rounded-2xl sm:rounded-3xl transition-all duration-300 border ${
               activeTab === "solution"
                 ? "bg-white border-blue-300 shadow-xl shadow-blue-500/10 ring-2 ring-blue-500/20"
                 : "bg-slate-50/50 border-slate-200 opacity-70"

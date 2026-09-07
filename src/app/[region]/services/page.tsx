@@ -1,9 +1,26 @@
 import React from "react";
+import { Metadata } from "next";
 import { getRegion } from "@/lib/regions";
+import { buildPageMetadata } from "@/lib/seo";
 import ProductLadderSection from "@/components/sections/ProductLadderSection";
 import LeadFormSection from "@/components/sections/LeadFormSection";
 import StructuredData from "@/components/seo/StructuredData";
 import { Bot, CheckCircle2, ArrowRight, Shield, Cpu, Database, Network } from "lucide-react";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { region: string };
+}): Promise<Metadata> {
+  const reg = getRegion(params.region);
+  return buildPageMetadata({
+    title: `AI Agent Architecture & Implementation Services (${reg.name}) — Cretivra`,
+    description: `Enterprise-grade autonomous AI agent development and implementation for ${reg.name}. WhatsApp sales bots, support automation, ERP sync, and managed services.`,
+    path: "/services",
+    regionCode: params.region,
+    keywords: [`AI services ${reg.name}`, "AI agent implementation", "enterprise AI automation"],
+  });
+}
 
 export default function ServicesPage({ params }: { params: { region: string } }) {
   const reg = getRegion(params.region);

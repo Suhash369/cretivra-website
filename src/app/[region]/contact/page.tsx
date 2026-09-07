@@ -1,8 +1,25 @@
 import React from "react";
+import { Metadata } from "next";
 import { getRegion } from "@/lib/regions";
+import { buildPageMetadata } from "@/lib/seo";
 import LeadFormSection from "@/components/sections/LeadFormSection";
 import StructuredData from "@/components/seo/StructuredData";
 import { Mail, Phone, MapPin, Clock, Globe } from "lucide-react";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { region: string };
+}): Promise<Metadata> {
+  const reg = getRegion(params.region);
+  return buildPageMetadata({
+    title: `Contact Cretivra — AI Engineering Team (${reg.name})`,
+    description: `Get in touch with Cretivra's AI engineering team in ${reg.name}. Fast 2-hour response SLA, book a discovery call, or request a free 48-hour prototype.`,
+    path: "/contact",
+    regionCode: params.region,
+    keywords: [`contact Cretivra ${reg.name}`, "hire AI engineers", "AI agency contact"],
+  });
+}
 
 export default function ContactPage({ params }: { params: { region: string } }) {
   const reg = getRegion(params.region);

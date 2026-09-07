@@ -1,8 +1,25 @@
 import React from "react";
+import { Metadata } from "next";
 import { getRegion } from "@/lib/regions";
+import { buildPageMetadata } from "@/lib/seo";
 import StructuredData from "@/components/seo/StructuredData";
 import LeadFormSection from "@/components/sections/LeadFormSection";
 import { Download, Newspaper, ExternalLink, Award } from "lucide-react";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { region: string };
+}): Promise<Metadata> {
+  const reg = getRegion(params.region);
+  return buildPageMetadata({
+    title: `Press, News & Brand Assets (${reg.name}) — Cretivra`,
+    description: `Official announcements, press kit assets, and milestones for Cretivra AI automation operations across ${reg.name}.`,
+    path: "/press",
+    regionCode: params.region,
+    keywords: [`press Cretivra ${reg.name}`, "Cretivra news", "AI agency brand kit"],
+  });
+}
 
 export default function PressPage({ params }: { params: { region: string } }) {
   const reg = getRegion(params.region);

@@ -144,7 +144,7 @@ export default function LeadFormSection({ region }: LeadFormProps) {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200/90 shadow-2xl shadow-slate-200/60 relative overflow-hidden">
+            <div className="p-5 sm:p-10 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-2xl shadow-slate-200/60 relative overflow-hidden">
               <AnimatePresence mode="wait">
                 {submitted ? (
                   <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-12 space-y-6">
@@ -160,43 +160,43 @@ export default function LeadFormSection({ region }: LeadFormProps) {
                     </button>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
+                  <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
                     <div>
-                      <h3 className="font-heading font-bold text-xl text-slate-900">Send Message or Video Explanation</h3>
+                      <h3 className="font-heading font-bold text-lg sm:text-xl text-slate-900">Send Message or Video Explanation</h3>
                       <p className="text-xs text-slate-500 mt-1">Fill in details below. You can also paste a Loom or Drive video link explaining your process.</p>
                     </div>
 
                     {errorMessage && <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700">{errorMessage}</div>}
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                       <div>
                         <label className="block text-xs font-semibold text-slate-700 mb-1">Full Name *</label>
-                        <input type="text" name="name" required value={formData.name} onChange={handleChange} placeholder="e.g. Rahul Sharma" className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-blue-600" />
+                        <input type="text" name="name" required value={formData.name} onChange={handleChange} placeholder="e.g. Rahul Sharma" className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm sm:text-xs focus:outline-none focus:border-blue-600" />
                       </div>
                       <div>
                         <label className="block text-xs font-semibold text-slate-700 mb-1">Work Email *</label>
-                        <input type="email" name="email" required value={formData.email} onChange={handleChange} placeholder="rahul@company.com" className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-blue-600" />
+                        <input type="email" name="email" required value={formData.email} onChange={handleChange} placeholder="rahul@company.com" className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm sm:text-xs focus:outline-none focus:border-blue-600" />
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
                       <div>
                         <label className="block text-xs font-semibold text-slate-700 mb-1">Company Name</label>
-                        <input type="text" name="company" value={formData.company} onChange={handleChange} placeholder="Acme Corp" className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-blue-600" />
+                        <input type="text" name="company" value={formData.company} onChange={handleChange} placeholder="Acme Corp" className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm sm:text-xs focus:outline-none focus:border-blue-600" />
                       </div>
                       <div>
                         <label className="block text-xs font-semibold text-slate-700 mb-1">Website URL</label>
-                        <input type="url" name="website" value={formData.website} onChange={handleChange} placeholder="https://company.com" className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-blue-600" />
+                        <input type="url" name="website" value={formData.website} onChange={handleChange} placeholder="https://company.com" className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm sm:text-xs focus:outline-none focus:border-blue-600" />
                       </div>
                       <div>
                         <label className="block text-xs font-semibold text-slate-700 mb-1">Phone / WhatsApp</label>
-                        <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="+91 98765 43210" className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-blue-600" />
+                        <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="+91 98765 43210" className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm sm:text-xs focus:outline-none focus:border-blue-600" />
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-xs font-semibold text-slate-700 mb-1">Describe your manual process or requirement *</label>
-                      <textarea name="manualProcess" required rows={3} value={formData.manualProcess} onChange={handleChange} placeholder="Describe the manual work or questions you want automated..." className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:outline-none focus:border-blue-600" />
+                      <textarea name="manualProcess" required rows={3} value={formData.manualProcess} onChange={handleChange} placeholder="Describe the manual work or questions you want automated..." className="w-full px-4 py-3 sm:py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm sm:text-xs focus:outline-none focus:border-blue-600" />
                     </div>
 
                     {/* Video Attachment / URL Field */}
@@ -214,11 +214,11 @@ export default function LeadFormSection({ region }: LeadFormProps) {
                         value={formData.videoLink}
                         onChange={handleChange}
                         placeholder="e.g. https://www.loom.com/share/... or https://drive.google.com/..."
-                        className="w-full px-3.5 py-2 rounded-xl bg-white border border-blue-200 text-slate-900 text-xs focus:outline-none focus:border-blue-600"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-blue-200 text-slate-900 text-sm sm:text-xs focus:outline-none focus:border-blue-600"
                       />
                     </div>
 
-                    <button type="submit" disabled={loading} className="w-full py-4 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600 hover:opacity-95 shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 disabled:opacity-50">
+                    <button type="submit" disabled={loading} className="w-full py-3.5 sm:py-4 rounded-xl text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600 hover:opacity-95 shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 disabled:opacity-50 min-h-[48px]">
                       {loading ? (
                         <>
                           <Loader2 className="w-4 h-4 animate-spin text-white" />

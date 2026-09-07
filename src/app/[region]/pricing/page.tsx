@@ -1,10 +1,26 @@
 import React from "react";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import { Metadata } from "next";
 import ProductLadderSection from "@/components/sections/ProductLadderSection";
 import LeadFormSection from "@/components/sections/LeadFormSection";
+import StructuredData from "@/components/seo/StructuredData";
 import { getRegion } from "@/lib/regions";
+import { buildPageMetadata } from "@/lib/seo";
 import { HelpCircle } from "lucide-react";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { region: string };
+}): Promise<Metadata> {
+  const reg = getRegion(params.region);
+  return buildPageMetadata({
+    title: `Pricing & Quotations — Cretivra ${reg.name}`,
+    description: `Modular AI implementation solutions and custom quotation calculator for ${reg.name}. Audit, single automation agent, custom multi-agent, and 24/7 managed SLA.`,
+    path: "/pricing",
+    regionCode: params.region,
+    keywords: [`pricing Cretivra ${reg.name}`, "AI agent cost", "custom quotation AI"],
+  });
+}
 
 export default function PricingPage({ params }: { params: { region?: string } }) {
   const reg = getRegion(params?.region);
@@ -18,41 +34,38 @@ export default function PricingPage({ params }: { params: { region?: string } })
 
   return (
     <>
-      <Navbar region={reg} />
-      <main>
-        <section className="relative pt-36 pb-16 bg-gradient-to-b from-white via-slate-50 to-white border-b border-slate-200 text-center">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <span className="text-xs font-semibold text-blue-600 tracking-widest uppercase mb-3 block">Custom Quotations & Proposals ({reg.name})</span>
-            <h1 className="text-4xl sm:text-6xl font-heading font-extrabold text-slate-900">Tailored AI Implementation Pricing.</h1>
-            <p className="mt-4 text-slate-600 text-lg max-w-2xl mx-auto">Get an official proposal tailored specifically to your company's process volume and integration needs.</p>
+      <StructuredData region={reg} pageType="services" />
+      <section className="relative pt-36 pb-16 bg-gradient-to-b from-white via-slate-50 to-white border-b border-slate-200 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <span className="text-xs font-semibold text-blue-600 tracking-widest uppercase mb-3 block">Custom Quotations & Proposals ({reg.name})</span>
+          <h1 className="text-4xl sm:text-6xl font-heading font-extrabold text-slate-900">Tailored AI Implementation Pricing.</h1>
+          <p className="mt-4 text-slate-600 text-lg max-w-2xl mx-auto">Get an official proposal tailored specifically to your company's process volume and integration needs.</p>
+        </div>
+      </section>
+
+      <ProductLadderSection region={reg} />
+
+      <section className="py-20 bg-white border-t border-slate-200">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-xs font-semibold text-blue-600 tracking-widest uppercase mb-2">Got Questions?</h2>
+            <p className="text-3xl font-heading font-bold text-slate-900">Frequently Asked Questions</p>
           </div>
-        </section>
-
-        <ProductLadderSection region={reg} />
-
-        <section className="py-20 bg-white border-t border-slate-200">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-xs font-semibold text-blue-600 tracking-widest uppercase mb-2">Got Questions?</h2>
-              <p className="text-3xl font-heading font-bold text-slate-900">Frequently Asked Questions</p>
-            </div>
-            <div className="space-y-6">
-              {faqs.map((faq, i) => (
-                <div key={i} className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-2">
-                  <div className="flex items-center gap-3 text-slate-900 font-heading font-bold text-base">
-                    <HelpCircle className="w-5 h-5 text-blue-600 shrink-0" />
-                    <span>{faq.q}</span>
-                  </div>
-                  <p className="text-xs sm:text-sm text-slate-600 pl-8 leading-relaxed font-medium">{faq.a}</p>
+          <div className="space-y-6">
+            {faqs.map((faq, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-2">
+                <div className="flex items-center gap-3 text-slate-900 font-heading font-bold text-base">
+                  <HelpCircle className="w-5 h-5 text-blue-600 shrink-0" />
+                  <span>{faq.q}</span>
                 </div>
-              ))}
-            </div>
+                <p className="text-xs sm:text-sm text-slate-600 pl-8 leading-relaxed font-medium">{faq.a}</p>
+              </div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <LeadFormSection region={reg} />
-      </main>
-      <Footer region={reg} />
+      <LeadFormSection region={reg} />
     </>
   );
 }

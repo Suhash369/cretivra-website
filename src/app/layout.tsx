@@ -36,17 +36,6 @@ export const metadata: Metadata = {
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
-  alternates: {
-    canonical: "https://cretivra.com",
-    languages: {
-      "en-in": "https://cretivra.com/in",
-      "en-us": "https://cretivra.com/us",
-      "en-gb": "https://cretivra.com/uk",
-      "en-ae": "https://cretivra.com/ae",
-      "en-sg": "https://cretivra.com/sg",
-      "x-default": "https://cretivra.com",
-    },
-  },
   keywords: [
     "AI automation agency India",
     "AI agent development company Bengaluru",
@@ -105,7 +94,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} dark`}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <head>
         <link rel="icon" type="image/png" href="/favicon.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
@@ -123,7 +112,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="bg-[#070A1E] text-slate-100 min-h-screen relative font-sans">
+      <body className="bg-white text-slate-900 min-h-screen relative font-sans antialiased selection:bg-blue-600 selection:text-white">
         <SmoothScroll>
           <NodeNetworkCanvas />
           <div className="relative z-10">{children}</div>

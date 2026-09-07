@@ -1,8 +1,25 @@
 import React from "react";
+import { Metadata } from "next";
 import { getRegion } from "@/lib/regions";
+import { buildPageMetadata } from "@/lib/seo";
 import CaseStudiesSection from "@/components/sections/CaseStudiesSection";
 import LeadFormSection from "@/components/sections/LeadFormSection";
 import StructuredData from "@/components/seo/StructuredData";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { region: string };
+}): Promise<Metadata> {
+  const reg = getRegion(params.region);
+  return buildPageMetadata({
+    title: `AI Case Studies & Client Architecture Blueprints (${reg.name}) — Cretivra`,
+    description: `Explore real-world AI agent implementation blueprints across Real Estate, D2C, and Manufacturing for companies in ${reg.name}.`,
+    path: "/case-studies",
+    regionCode: params.region,
+    keywords: [`case studies Cretivra ${reg.name}`, "AI ROI benchmarks", "AI automation blueprints"],
+  });
+}
 
 export default function CaseStudiesPage({ params }: { params: { region: string } }) {
   const reg = getRegion(params.region);

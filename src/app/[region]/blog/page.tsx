@@ -1,8 +1,25 @@
 import React from "react";
+import { Metadata } from "next";
 import { getRegion } from "@/lib/regions";
+import { buildPageMetadata } from "@/lib/seo";
 import StructuredData from "@/components/seo/StructuredData";
 import LeadFormSection from "@/components/sections/LeadFormSection";
 import { BookOpen, Calendar, Clock, ArrowRight } from "lucide-react";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { region: string };
+}): Promise<Metadata> {
+  const reg = getRegion(params.region);
+  return buildPageMetadata({
+    title: `AI Insights, Guides & Engineering Articles (${reg.name}) — Cretivra`,
+    description: `Practical guides, architectural patterns, and ROI strategies for deploying autonomous AI agents in your business across ${reg.name}.`,
+    path: "/blog",
+    regionCode: params.region,
+    keywords: [`AI blog ${reg.name}`, "WhatsApp AI agent guide", "multi-agent architecture tutorial"],
+  });
+}
 
 export default function BlogPage({ params }: { params: { region: string } }) {
   const reg = getRegion(params.region);

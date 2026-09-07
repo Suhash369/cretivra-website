@@ -135,16 +135,17 @@ export default function QuotationModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto bg-slate-900/60 backdrop-blur-md">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto bg-slate-900/60 backdrop-blur-md">
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 10 }}
-        className="relative w-full max-w-2xl rounded-3xl bg-white border border-slate-200 shadow-2xl overflow-hidden p-6 sm:p-8"
+        className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-2xl p-5 sm:p-8"
       >
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+          className="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+          aria-label="Close Modal"
         >
           <X className="w-5 h-5" />
         </button>
@@ -165,7 +166,7 @@ export default function QuotationModal({
 
             <button
               onClick={onClose}
-              className="px-8 py-3 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600 hover:opacity-95 transition-opacity"
+              className="px-8 py-3 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600 hover:opacity-95 transition-opacity min-h-[44px]"
             >
               Done
             </button>
@@ -177,7 +178,7 @@ export default function QuotationModal({
               <span>Interactive AI Quotation Calculator ({region.flag} {region.name})</span>
             </div>
 
-            <h3 className="text-2xl font-heading font-bold text-slate-900 mb-1">
+            <h3 className="text-xl sm:text-2xl font-heading font-bold text-slate-900 mb-1">
               Request Your Tailored AI Quotation
             </h3>
             <p className="text-xs text-slate-500 mb-6">
@@ -185,7 +186,7 @@ export default function QuotationModal({
             </p>
 
             {step === 1 ? (
-              <form onSubmit={handleCalculateEstimate} className="space-y-5">
+              <form onSubmit={handleCalculateEstimate} className="space-y-4 sm:space-y-5">
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                     1. Select AI Solution Tier *
@@ -193,7 +194,7 @@ export default function QuotationModal({
                   <select
                     value={formData.tier}
                     onChange={(e) => setFormData({ ...formData, tier: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-medium focus:outline-none focus:border-blue-600"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm sm:text-xs font-medium focus:outline-none focus:border-blue-600"
                   >
                     <option value="AI Audit & Discovery">Tier 1: AI Audit & Discovery</option>
                     <option value="AI Automation Agents">Tier 2: Single-Agent Automation (WhatsApp / Support / Sales)</option>
@@ -212,7 +213,7 @@ export default function QuotationModal({
                         type="button"
                         key={vol}
                         onClick={() => setFormData({ ...formData, volume: `${vol} / month` })}
-                        className={`py-2 px-3 rounded-xl text-xs font-semibold transition-all border ${
+                        className={`py-2 px-2.5 rounded-xl text-xs font-semibold transition-all border ${
                           formData.volume.startsWith(vol)
                             ? "bg-blue-600 text-white border-blue-600 shadow"
                             : "bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-300"
@@ -236,7 +237,7 @@ export default function QuotationModal({
                           type="button"
                           key={ch}
                           onClick={() => handleChannelToggle(ch)}
-                          className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all border ${
+                          className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
                             selected
                               ? "bg-cyan-50 border-cyan-400 text-cyan-800 font-semibold"
                               : "bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300"
@@ -252,7 +253,7 @@ export default function QuotationModal({
                 <div className="pt-4 flex justify-end">
                   <button
                     type="submit"
-                    className="px-6 py-3 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 shadow-md hover:opacity-95 flex items-center gap-2"
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 shadow-md hover:opacity-95 flex items-center justify-center gap-2 min-h-[44px]"
                   >
                     <span>Proceed to Contact Details</span>
                     <ArrowRight className="w-4 h-4" />
@@ -260,7 +261,7 @@ export default function QuotationModal({
                 </div>
               </form>
             ) : (
-              <form onSubmit={handleSubmitQuote} className="space-y-4">
+              <form onSubmit={handleSubmitQuote} className="space-y-3.5 sm:space-y-4">
                 <div className="p-3 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-900 mb-2 flex items-center justify-between">
                   <div>
                     <span className="font-semibold">Selected: </span>
@@ -286,7 +287,7 @@ export default function QuotationModal({
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Alexander Wright"
-                      className="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-blue-600"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm sm:text-xs text-slate-900 focus:outline-none focus:border-blue-600"
                     />
                   </div>
 
@@ -300,7 +301,7 @@ export default function QuotationModal({
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="alex@company.com"
-                      className="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-blue-600"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm sm:text-xs text-slate-900 focus:outline-none focus:border-blue-600"
                     />
                   </div>
                 </div>
@@ -316,7 +317,7 @@ export default function QuotationModal({
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                       placeholder="Acme Enterprises"
-                      className="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-blue-600"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm sm:text-xs text-slate-900 focus:outline-none focus:border-blue-600"
                     />
                   </div>
 
@@ -330,7 +331,7 @@ export default function QuotationModal({
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+91 98765 43210"
-                      className="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-blue-600"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm sm:text-xs text-slate-900 focus:outline-none focus:border-blue-600"
                     />
                   </div>
                 </div>
@@ -344,7 +345,7 @@ export default function QuotationModal({
                     value={formData.requirements}
                     onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
                     placeholder="Describe your process requirements or paste a Loom/Drive video link..."
-                    className="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-blue-600"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm sm:text-xs text-slate-900 focus:outline-none focus:border-blue-600"
                   />
                 </div>
 
@@ -359,7 +360,7 @@ export default function QuotationModal({
                   <button
                     type="submit"
                     disabled={loading}
-                    className="px-8 py-3 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600 shadow-lg hover:opacity-95 flex items-center gap-2 disabled:opacity-50"
+                    className="px-8 py-3 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-500 to-violet-600 shadow-lg hover:opacity-95 flex items-center gap-2 disabled:opacity-50 min-h-[44px]"
                   >
                     {loading ? (
                       <>
